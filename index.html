@@ -191,7 +191,7 @@
         let output = "Media:<br>";
 
         for (const file of files) {
-            if (file.name.endsWith(".png")) {
+            if (file.name.endsWith(".png") || file.name.endsWith(".webp") || file.name.endsWith(".jpg")) {
                 // output += `<a href="${file.download_url}" target="_blank">[${file.name}]</a><br>`;
                 output += `<a onclick="terminal('gio open ${file.name}')">[${file.name}]</a><br>`;
             }
@@ -215,7 +215,7 @@
             if (prevCommand.startsWith("gio open")){
                 name = prevCommand.split(" ")[2]
                 src = `https://raw.githubusercontent.com/goldenboys2011/goldenboys2011.github.io/main/media/${name}`
-                content.innerHTML = `${name} / <br> <img width="80%"src="${src}"> <hr>`
+                content.innerHTML = `${name} / <br> <img src="${src}" style="max-width: 80%; max-height: 60%;"> <hr>`
             }else{
                 content.innerHTML = commands[prevCommand];
             }
