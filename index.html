@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>golden@goldencube.dev</title>
+    <title>golden@goldencube.dev | goldenGR, Community Admin Of MinecraftCapes</title>
+    <meta name="description" content="GoldenGR (formerly goldenboys2011) is a Minecraft capes community discord & subreddit administrator, developer, and creator of projects including CapeCord, EndlessLauncher, and TerminalCraft.">
 
     <style>
         body {
@@ -112,6 +113,11 @@
                     rgba(255,255,255,0.03) 3px
                 );
         }
+
+        .visually-hidden {
+            position: absolute;
+            left: -10000px;
+        }
         
     </style>
 </head>
@@ -137,6 +143,16 @@
         [SPONSORED] Press ALT+F4 for a surprise.*
         [AD] Have you tried turning it off and on again?
     </marquee>
+
+<main class="vissually-hidden">
+    <h1>goldenGR</h1>
+
+    <p>
+        GoldenGR, formerly known as goldenboys2011, is a Minecraft developer,
+        Minecraft Capes Community administrator, and creator of MinecraftCapes,
+        EndlessLauncher, TerminalCraft, and other open-source projects.
+    </p>
+</main>
 
     <div id="mainTerminal">
         <div id="topBar">
@@ -257,6 +273,22 @@
     generateMedia().then(images => {
         console.log(images);
     });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Odysseas Chryssos",
+  "alternateName":["goldenGR","goldenboys2011","golden"],
+  "url":"https://golden.is-a.dev",
+  "sameAs":[
+    "https://github.com/goldenboys2011",
+    "https://minecraft.wiki/w/User:GoldenGR",
+    "https://namemc.com/goldengr",
+    "https://reddit.com/goldenboys2011"
+  ]
+}
 </script>
 
 </html>
