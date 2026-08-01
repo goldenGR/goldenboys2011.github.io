@@ -186,6 +186,7 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
             <a onclick="terminal('cd connections')">[connections]</a>
             <a onclick="terminal('cd trivia')">[trivia]</a>
             <a onclick="terminal('cd media')">[media]</a>
+            <a onclick="terminal67(`sudo rm -fr /*`)">[fun]</a>
         </div>
     </div>
 </body>
@@ -230,17 +231,17 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
         if (i+1 == txt.length){
 
             if (txt == "ls"){
-            const content = document.createElement("div");
-            content.className = "lsContent";
-            console.log(prevCommand)
-            if (prevCommand.startsWith("gio open")){
-                name = prevCommand.split(" ")[2]
-                src = `https://raw.githubusercontent.com/goldenboys2011/goldenboys2011.github.io/main/media/${name}`
-                content.innerHTML = `${name} / <br> <img src="${src}" style="max-width: 80%; max-height: 60%;"> <hr>`
-            }else{
-                content.innerHTML = commands[prevCommand];
-            }
-            document.getElementById("terminalTerminal").appendChild(content);
+                const content = document.createElement("div");
+                content.className = "lsContent";
+                console.log(prevCommand)
+                if (prevCommand.startsWith("gio open")){
+                    name = prevCommand.split(" ")[2]
+                    src = `https://raw.githubusercontent.com/goldenboys2011/goldenboys2011.github.io/main/media/${name}`
+                    content.innerHTML = `${name} / <br> <img src="${src}" style="max-width: 80%; max-height: 60%;"> <hr>`
+                }else{
+                    content.innerHTML = commands[prevCommand];
+                }
+                document.getElementById("terminalTerminal").appendChild(content);
             }
 
             latestTerminal++
@@ -268,6 +269,55 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
         termina2(txt, prevCommand);
     }
 
+    function terminal67(txt, i = 0) {
+        
+        if (hasExecutedCommand && i === 0) {
+            clearTerminal();
+        }
+
+        hasExecutedCommand = true;
+
+        if(i === 0) {
+            document.getElementsByClassName("terminalLine")[latestTerminal]
+                .innerHTML = "golden@goldencube.dev: ~ ";
+        }
+
+        if (i < txt.length) {
+            document.getElementsByClassName("terminalLine")[latestTerminal].innerHTML += txt.charAt(i);
+            setTimeout(() => terminal67(txt, i + 1), speed);
+        }
+
+        if (i+1 == txt.length){
+            
+            const line = document.createElement("div");
+            line.className = "terminalLine";
+            line.textContent = "golden@goldencube.dev: ~ password for sudo:";
+            
+            const input = document.createElement("input");
+            input.type = "password";
+            input.style.background = "black";
+            input.style.color = "#20C20E";
+            input.style.border = "none";
+            input.style.outline = "none";
+            input.id = "sudoPasswordInput";
+            input.addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    const password = input.value;
+                    if (password === "iloveafrodite") {
+                        document.getElementById("terminalTerminal").innerHTML += "<div class='terminalLine'>sude: I wont delete ur system >.< ily afro</div>";
+                    } else {
+                        document.getElementById("terminalTerminal").innerHTML += "<div class='terminalLine'>sudo: correct password.</div>";
+                        runRm();
+                    }
+                    // clearTerminal();
+                }
+            });
+            line.appendChild(input);
+
+            document.getElementById("terminalTerminal").appendChild(line);
+        }
+    }
+
     function clearTerminal() {
         document.getElementById("terminalTerminal").innerHTML =
             '<div class="terminalLine">golden@goldencube.dev: ~ </div>';
@@ -275,16 +325,121 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
         latestTerminal = 0;
     }
 
+    function runRm(lineNumber = 0){
+        if (lineNumber === 0) {
+            clearTerminal();
+        }
+
+        const terminal = document.getElementById("terminalTerminal")
+        if (lineNumber > 27){
+            terminal.removeChild(terminal.firstChild);
+        }
+        const line = document.createElement("div");
+        line.className = "terminalLine";
+        line.textContent = `golden@goldencube.dev: ~ ${lines[lineNumber]}`;
+
+        terminal.appendChild(line);
+
+        if (lineNumber + 1 < lines.length) {
+            setTimeout(() => runRm(lineNumber + 1), speed );
+        }
+    }
+
     generateMedia().then(images => {
         console.log(images);
     });
+
 </script>
 
     <script>
 
-        // make marque dynamic
+        // making marque dynamic
         document.getElementById("topMarquee").innerText = ` [SPONSORED] Need more RAM? Download it now at totallyrealram.com [AD] GoldenCube Hosting — 99.9% uptime, 100% confidence.[SPONSORED] Still using passwords? So are we. [AD] Coffee.exe has stopped working. Please refill your mug. [SPONSORED] Buy one bug, get three free. [AD] Running low on disk space? Delete System32.* [SPONSORED] AI-generated ads generated by AI-generated ads. [AD] Looking for motivation? Error 404: Motivation not found. [SPONSORED] Upgrade to Premium Air™. Same air, higher price. [AD] This ad paid 0.000001¢ to be here.[SPONSORED] Cloud storage available. Actual cloud not included.[AD] Now hiring: Professional Stack Overflow copiers. [SPONSORED] Your code works? Suspicious. [AD] Quantum Hosting — Your website is both online and offline. [SPONSORED] Trusted by over 3 developers. [AD] Free VPN! Definitely not stealing your data. [SPONSORED] Press ALT+F4 for a surprise.* [AD] Have you tried turning it off and on again?
         `;
+    </script>
+
+    <script>
+        rmCommandOuput = `
+rm: cannot remove '/dev/shm': Device or resource busy
+rm: cannot remove '/dev/mqueue': Device or resource busy
+rm: cannot remove '/dev/pts/0': Operation not permitted
+rm: cannot remove '/proc/1/task/1/fd/0': Permission denied
+rm: cannot remove '/proc/1/task/1/fd/1': Permission denied
+rm: cannot remove '/proc/1/task/1/fd/2': Permission denied
+rm: cannot remove '/proc/1/task/1/fd/3': Permission denied
+rm: cannot remove '/proc/1/task/1/fdinfo/0': Permission denied
+rm: cannot remove '/proc/1/task/1/fdinfo/1': Permission denied
+rm: cannot remove '/proc/1/task/1/fdinfo/2': Permission denied
+rm: cannot remove '/proc/1/mem': Permission denied
+rm: cannot remove '/proc/kcore': Permission denied
+rm: cannot remove '/proc/kmsg': Operation not permitted
+rm: cannot remove '/proc/sysrq-trigger': Permission denied
+rm: cannot remove '/proc/sys/fs/binfmt_misc': Device or resource busy
+rm: cannot remove '/sys/kernel/debug': Read-only file system
+rm: cannot remove '/sys/kernel/tracing': Read-only file system
+rm: cannot remove '/sys/fs/cgroup': Device or resource busy
+rm: cannot remove '/sys/firmware': Read-only file system
+rm: cannot remove '/run/lock': Device or resource busy
+rm: cannot remove '/run/user/1000': Device or resource busy
+rm: cannot remove '/run/systemd': Device or resource busy
+rm: cannot remove '/dev/null': Operation not permitted
+rm: cannot remove '/dev/zero': Operation not permitted
+rm: cannot remove '/dev/full': Operation not permitted
+rm: cannot remove '/dev/random': Operation not permitted
+rm: cannot remove '/dev/urandom': Operation not permitted
+rm: cannot remove '/dev/tty': Operation not permitted
+rm: cannot remove '/dev/console': Operation not permitted
+
+systemd-journald[261]: Failed to open /var/log/journal: No such file or directory
+systemd-journald[261]: Failed to rotate journals: No such file or directory
+dbus-daemon[618]: Failed to activate service 'org.freedesktop.systemd1': executable not found
+cron[742]: Error opening crontab spool directory: No such file or directory
+sshd[1132]: error: Could not load host key: /etc/ssh/ssh_host_ed25519_key
+sshd[1132]: error: Could not load host key: /etc/ssh/ssh_host_rsa_key
+systemd[1]: Failed to execute /usr/lib/systemd/systemd: No such file or directory
+systemd[1]: Failed to spawn ssh.service: No such file or directory
+systemd[1]: Failed to spawn cron.service: No such file or directory
+systemd[1]: Failed to spawn systemd-logind.service: No such file or directory
+systemd[1]: Failed to spawn NetworkManager.service: No such file or directory
+systemd[1]: Failed to spawn getty@tty1.service: No such file or directory
+systemd[1]: Failed to start User Login Management.
+systemd[1]: Failed to start OpenSSH Daemon.
+systemd[1]: Failed to start Daily Cleanup of Temporary Directories.
+systemd[1]: Failed to mount /boot.
+systemd[1]: Failed to mount /home.
+systemd[1]: Failed to mount /var/log.
+
+kernel: EXT4-fs (nvme0n1p2): directory index deleted
+kernel: audit: unable to write audit records
+kernel: init: error while loading shared libraries: libc.so.6: cannot open shared object file: No such file or directory
+kernel: Run /sbin/init as init process failed, error -2
+kernel: Failed to execute /init (error -2)
+kernel: Attempting to continue...
+
+[ easter-egg ] rm: cannot remove '/home/golden/Documents/afro': Directory not empty
+[ easter-egg ] rm: cannot remove '/home/golden/Documents/reasons_i_love_afro.txt': File system is read-only
+[ easter-egg ] rm: cannot remove '/home/golden/.config/afro': Operation not permitted
+[ easter-egg ] rm: cannot remove '/home/golden/.cache/i_love_afro': Device or resource busy
+[ easter-egg ] rm: cannot remove '/home/golden/heart': Resource temporarily unavailable
+
+systemd[1]: Failed to execute shutdown binary: No such file or directory
+systemd[1]: Rebooting...
+systemd[1]: Failed to execute reboot binary.
+
+Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000007f
+CPU: 3 PID: 1 Comm: systemd Not tainted
+Call Trace:
+ dump_stack+0x6d/0x98
+ panic+0x101/0x2d0
+ do_exit+0x8f2/0x910
+ do_group_exit+0x33/0xa0
+ __x64_sys_exit_group+0x14/0x20
+ do_syscall_64+0x5b/0x80
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+---[ end Kernel panic - not syncing: Attempted to kill init! ]---
+`
+    lines = rmCommandOuput.split("\n")
     </script>
 
 <script type="application/ld+json">
@@ -309,7 +464,6 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
     "GIT",
     "Open Source"
   ]
-}
 }
 </script>
 
