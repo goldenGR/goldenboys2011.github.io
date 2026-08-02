@@ -336,7 +336,7 @@ Throughout his years playing Minecraft he got engaged on the thechnical communit
         }
         const line = document.createElement("div");
         line.className = "terminalLine";
-        line.textContent = `golden@goldencube.dev: ~ ${lines[lineNumber]}`;
+        line.textContent = `${lines[lineNumber]}`;
 
         terminal.appendChild(line);
 
@@ -416,11 +416,10 @@ kernel: Run /sbin/init as init process failed, error -2
 kernel: Failed to execute /init (error -2)
 kernel: Attempting to continue...
 
-[ easter-egg ] rm: cannot remove '/home/golden/Documents/afro': Directory not empty
-[ easter-egg ] rm: cannot remove '/home/golden/Documents/reasons_i_love_afro.txt': File system is read-only
-[ easter-egg ] rm: cannot remove '/home/golden/.config/afro': Operation not permitted
-[ easter-egg ] rm: cannot remove '/home/golden/.cache/i_love_afro': Device or resource busy
-[ easter-egg ] rm: cannot remove '/home/golden/heart': Resource temporarily unavailable
+rm: cannot remove '/home/golden/Documents/afro': Directory not empty
+rm: cannot remove '/home/golden/Documents/reasons_i_love_afro.txt': File system is read-only
+rm: cannot remove '/home/golden/.config/afro': Operation not permitted
+rm: cannot remove '/home/golden/.cache/i_love_afro': Device or resource busy
 
 systemd[1]: Failed to execute shutdown binary: No such file or directory
 systemd[1]: Rebooting...
